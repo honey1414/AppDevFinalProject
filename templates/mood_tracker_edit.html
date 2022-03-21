@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.css') }} ">
+	<title>MoodTracker/{{member.user_id}}/EditEntry/{{mood.track_id}}</title>
+</head>
+<body>
+<section>
+	<div class="container mt-5 pt-5"><h1>Hello, {{ member.username }}</h1>
+		<div class="d-grid gap-2 d-md-block">
+					<a href="/" class="btn btn-dark" type="button">logout</a>
+				</div>
+
+		<div class="row">
+			<div class="col-7"></div>
+			<div class="col-5"><a href="/MoodTracker/{{ member.user_id }} " class="btn btn-link"> <h6>Go back to Mood Tracker</h6></a>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-12 col-sm-8 col-md-6 m-auto">
+				<div class="card"><div class="text-center"><h3>Update the Log</h3></div>
+					<div class="card-body">
+
+						<form action="/MoodTracker/{{member.user_id}}/EditEntry/{{mood.track_id}}" method="POST">
+
+							<label for="date-picker"><h5>When</h5></label>
+							<input type="datetime-local" class="form-control" name="when" id="date-picker" value={{date}} required>
+
+							<label for="mood_value" ><h5>Value</h5></label>
+							<select class="form-control" name="value" id="mood_value" >
+                        	{% for i in mood_values %}
+							{% if i == mood.value %}
+							<option class="form-control" value= {{i}} selected="selected" > {{i}}</option>
+							{% else %}
+                        	<option class="form-control" value = {{i}}> {{i}} </option>
+							{% endif %}
+                        	{% endfor %}
+                    		</select>
+
+							<label for="floatingTextarea"><h5>Notes</h5></label>
+							<textarea name="notes" class="form-control" placeholder="Leave a comment here"  id="floatingTextarea">{{mood.desc}}</textarea>
+
+							<div class="text-center mt-3">
+								<button class="btn btn-primary">Update</button>
+							</div>
+						</form>
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+</section>
+
+</body>
+<script type="text/javascript">
+	var today = new Date();
+
+	var year = today.getFullYear();
+	var month = String(today.getMonth()+1).padStart(2,'0');
+	var day = String(today.getDate()).padStart(2,'0');
+	var hour = String(today.getHours()).padStart(2,'0');
+	var minutes = String(today.getMinutes()).padStart(2,'0');
+
+	date_time = year+'-'+month+'-'+day+'T'+hour+':'+minutes;
+
+	document.getElementById('date-picker').setAttribute("max", date_time);
+</html>

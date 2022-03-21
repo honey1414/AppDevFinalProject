@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.css')  }}">
+	<title>View User</title>
+</head>
+<body>
+	<div class="container">
+		<div class="jumbotron">
+			<div class="card">
+				<div class="card-header">
+					<h1>Hello,{{ member.username }}</h1>
+				</div>
+				<div class="d-grid gap-2 d-md-block">
+					<a href="/" class="btn btn-dark" type="button">logout</a>
+				</div>
+				<div class="card-body">
+					<h3 class="card-title">Dashboard</h3>
+					<table class="table table-bordered">
+						<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Tracker</th>
+						    <th scope="col">Last Tracked</th>
+						    <th scope="col">Actions</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td>1</td>
+							<td><a class="btn btn-link" href="/MoodTracker/{{ member.user_id }}"><h5>Mood </h5> </a></td>
+							{% if moods == None %}
+							<td> No Data </td>
+							{% else %}
+							<td>{{ mood_date }}</td>
+							{% endif %}
+							<td>{% if moods == None %}
+								<a class="btn btn-success" href="/MoodTracker/{{ member.user_id }}/AddEntry">Add</a>
+								{% else %}
+								<a class="btn btn-success" href="/MoodTracker/{{ member.user_id }}/AddEntry">Add</a>
+								<a class="btn btn-danger" href="/MoodTracker/{{ member.user_id }}/Delete">Delete</a></td>
+								{% endif %}
+						</tr>
+
+						<tr>
+							<td>2</td>
+							<td><a class="btn btn-link"  href="/RunningTracker/{{ member.user_id }}"><h5>Running</h5></a></td>
+							{% if runs == None %}
+							<td> No Data </td>
+							{% else %}
+							<td>{{ run_date }}</td>
+							{% endif %}
+							<td>{% if runs == None %}
+								<a class="btn btn-success" href="/RunningTracker/{{member.user_id}}/AddEntry">Add</a>
+								{% else %}
+								<a class="btn btn-success" href="/RunningTracker/{{member.user_id}}/AddEntry">Add</a>
+								<a class="btn btn-danger" href="/RunningTracker/{{ member.user_id }}/Delete">Delete</a></td>
+								{% endif %}
+						</tr>
+
+						<tr>
+							<td>3</td>
+							<td><a class="btn btn-link" href="/TemperatureTracker/{{ member.user_id }}"><h5>Temperature</h5></a></td>
+							{% if temps == None %}
+							<td> No Data </td>
+							{% else %}
+							<td>{{ temp_date }}</td>
+							{% endif %}
+							<td>{% if temps == None %}
+								<a class="btn btn-success" href="/TemperatureTracker/{{ member.user_id }}/AddEntry">Add</a>
+								{% else %}
+								<a class="btn btn-success" href="/TemperatureTracker/{{ member.user_id }}/AddEntry">Add</a>
+								<a class="btn btn-danger" href="/TemperatureTracker/{{ member.user_id }}/Delete">Delete</a></td>
+								{% endif %}
+						</tr>
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.css') }}">
+	<title>MoodTracker/{{ member.username }}</title>
+</head>
+<body>
+	<div class="container">
+		<div class="jumbotron">
+			<div class="card"><h2>Hello, {{ member.username }}</h2>
+				<div class="d-grid gap-2 d-md-block">
+					<a href="/" class="btn btn-dark" type="button">logout</a>
+				</div>
+				<div class="text-center"><h3>Mood Tracker</h3>
+					<image src="{{ url_for('static', filename='mood_graph.png') }}"></image>
+				</div>
+				<div class="class-header"></div>
+				<div class="card-body">
+					<h2 class="card-title">Logs</h2>
+					{% if moods|length == 0 %}
+					<h4>No Data to Display</h4>
+					<div class="text-center"><a class="btn btn-link" href="/{{ member.user_id }}/homepage"><h4> Go to Dashboard</h4></a> </div>
+					{% else %}
+					<table class="table table-bordered">
+						<thread>
+							<tr>
+								<th scope="col">On</th>
+						      	<th scope="col">Value</th>
+						      	<th scope="col">Description</th>
+								<th scope="col">Actions</th>
+							</tr>
+							{% for i in moods %}
+							<tr>
+								<td> {{ dates[loop.index0] }}  </td>
+								<td> {{ i.value }} </td>
+								<td>{{ i.desc }}</td>
+								<td><a class="btn btn-primary" href="/MoodTracker/{{member.user_id}}/EditEntry/{{i.track_id}}">Edit</a>
+									<a  class="btn btn-danger" href="/MoodTracker/{{ member.user_id }}/DeleteEntry/{{ i.track_id}}">Delete</a></td>
+							</tr>
+							{% endfor %}
+						</thread>
+						<div class="text-center"><a class="btn btn-link" href="/{{ member.user_id }}/homepage"><h4> Go to Dashboard</h4></a> </div>
+					</table>
+					{% endif %}
+						<div class="text-center"><a class="btn btn-success" href="/MoodTracker/{{ member.user_id }}/AddEntry">Add New Entry</a> </div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
